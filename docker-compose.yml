@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: \frontend/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - fairyasle-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: \backend/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./uploads:/app/uploads
+      - ./generated:/app/generated
+    networks:
+      - fairyasle-network
+
+networks:
+  fairyasle-network:
+    driver: bridge 
