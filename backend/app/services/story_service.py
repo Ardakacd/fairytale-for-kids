@@ -28,10 +28,9 @@ async def create_story(prompt: str, images: Optional[List[UploadFile]] = None) -
             
             image_paths.append(file_path)
     
-    # Placeholder for story generation (you'll implement the actual AI part)
     title = f"The Magical Adventure of {prompt.split()[0] if prompt else 'the Hero'}"
 
-    flow_result =  await run_flow(prompt=prompt)
+    flow_result =  await run_flow(prompt=prompt, fairytale_images=image_paths)
 
     pages = []
 
