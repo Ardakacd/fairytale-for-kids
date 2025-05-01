@@ -1,6 +1,5 @@
 from textwrap import dedent
 from crewai import Task
-from app.crew.agents.FairytaleCheckerAgent import fairytale_moderator_agent
 
 def checking_fairytale_task(fairytale_text: str):
     """

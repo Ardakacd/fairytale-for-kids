@@ -1,6 +1,5 @@
 from textwrap import dedent
 from crewai import Task
-from app.crew.agents.ImageGeneratorAgent import image_generator_agent
 
 def generate_images_from_story_task(fairytale_text: str):
    

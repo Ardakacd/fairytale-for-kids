@@ -1,5 +1,4 @@
 from crewai import Task
-from app.crew.agents.TextUnderstandingAgent import text_understanding_agent
 from textwrap import dedent
 
 def understand_text_task(text: str):
