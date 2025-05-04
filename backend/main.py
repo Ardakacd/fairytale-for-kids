@@ -16,7 +16,7 @@ app = FastAPI(
     debug=settings.DEBUG
 )
 
-app.mount("/images", StaticFiles(directory="generated"), name="images")
+app.mount("/generated", StaticFiles(directory="generated"), name="generated")
 
 app.add_middleware(
     CORSMiddleware,
