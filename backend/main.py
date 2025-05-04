@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 import os
 
 from app.core.config import settings
@@ -14,6 +15,8 @@ app = FastAPI(
     version=settings.VERSION,
     debug=settings.DEBUG
 )
+
+app.mount("/images", StaticFiles(directory="generated"), name="images")
 
 app.add_middleware(
     CORSMiddleware,
