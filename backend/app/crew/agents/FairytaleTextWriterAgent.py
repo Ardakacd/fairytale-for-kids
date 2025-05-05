@@ -8,7 +8,7 @@ def fairytale_text_writer_agent():
             "Using the user's prompt plus the provided text_analysis JSON "
             "(themes, emotions, characters, setting, conflict, resolution, tone) "
             "and image_analysis JSON (scene descriptions, objects, colors, mood, style, actions), "
-            "craft a charming, coherent fairytale."
+            "craft a charming, coherent fairytale for children. You need to make sure the story is suitable for children."
         ),
         backstory=(
             "You are a master storyteller specializing in enchanting fairytales for children. "
