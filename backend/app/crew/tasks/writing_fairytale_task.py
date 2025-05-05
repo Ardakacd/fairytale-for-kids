@@ -22,7 +22,7 @@ def writing_fairytale_task(
             - Image Analysis: {image_analysis}
 
             **Note**: Separate each page by a line of exactly nine hyphens (`---------`). 
-            Do not include any extra commentary or JSON wrappers.
+            Do not include any extra commentary or JSON wrappers. Just create 2 page long fairytale.
             """
         ),
         expected_output="the fairytale separated by pages"
