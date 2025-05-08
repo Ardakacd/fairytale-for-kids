@@ -8,6 +8,8 @@ from app.crew.tasks.writing_fairytale_task import writing_fairytale_task
 from app.crew.agents.FairytaleTextWriterAgent import fairytale_text_writer_agent
 from app.crew.agents.FairytaleCheckerAgent import fairytale_moderator_agent
 from app.crew.tasks.checking_fairytale import checking_fairytale_task
+from app.crew.tasks.image_generation_task import generate_images_from_story_task
+from app.crew.agents.ImageGeneratorAgent import image_generator_agent
 
 
 
@@ -44,11 +46,22 @@ class FairyTaleFlow(Flow[FairyTaleState]):
         self.state.fairytale_text = result
 
     @listen(write_fairytale)
+    def generate_images(self):
+        task = generate_images_from_story_task(self.state.fairytale_text)
+        agent = image_generator_agent()
+        result = agent.kickoff(task.description)
+        self.state.fairytale_images = result
+
+    @listen(generate_images)
     def check_fairytale(self):
         task = checking_fairytale_task(self.state.fairytale_text)
         agent = fairytale_moderator_agent()
         result = agent.kickoff(task.description)
-        return result
+        self.state.fairytale_text = result
+        return {
+            "text": self.state.fairytale_text,
+            "images": self.state.fairytale_images
+        }
     
     
 

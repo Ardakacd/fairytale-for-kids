@@ -3,10 +3,10 @@ import uuid
 from datetime import datetime
 from typing import List, Optional
 from fastapi import UploadFile
-import asyncio
 from app.models.story import Story, Page
 from app.crew.flow import run_flow
-# In-memory storage (replace with database in production)
+import ast
+
 stories = {}
 
 async def create_story(prompt: str, images: Optional[List[UploadFile]] = None) -> Story:
@@ -30,14 +30,20 @@ async def create_story(prompt: str, images: Optional[List[UploadFile]] = None) -
     
     title = f"The Magical Adventure of {prompt.split()[0] if prompt else 'the Hero'}"
 
-    flow_result =  await run_flow(prompt=prompt, fairytale_images=image_paths)
+    flow_result = await run_flow(prompt=prompt, fairytale_images=image_paths)
+
+    fairytale_splitted_text = str(flow_result["text"]).split("---------")
+    
+    
+    fairytale_images = ast.literal_eval(str(flow_result["images"]))
 
     pages = []
-
-    for page in str(flow_result).split("---------"):
+    for index in range(len(fairytale_splitted_text)):
+        page = fairytale_splitted_text[index]
+        image_path = fairytale_images[index] if index < len(fairytale_images) else None
         if len(page) > 0:
-            pages.append(Page(text=page, imageUrl=f"/api/images/{uuid.uuid4()}.jpg"))
-     
+            pages.append(Page(text=page, imageUrl=f"http://localhost:8000/{image_path}"))
+      
     # Create the story object
     story = Story(
         id=story_id,
