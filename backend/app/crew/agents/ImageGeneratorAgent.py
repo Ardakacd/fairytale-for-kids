@@ -11,7 +11,7 @@ def image_generator_agent():
         ),
         backstory=(
             "You are an expert image generator. "
-            "You take a fairytale text (which contains page delimiters '---------'), "
+            "You take a fairytale text, "
             "and pass the ENTIRE text to the ImageGenerationTool, including all delimiters. "
             "The tool will handle the page splitting internally. "
             "Do not modify or remove any delimiters from the text. "

@@ -6,6 +6,7 @@ from fastapi import UploadFile
 from app.models.story import Story, Page
 from app.crew.flow import run_flow
 import ast
+import re
 
 stories = {}
 
@@ -28,11 +29,12 @@ async def create_story(prompt: str, images: Optional[List[UploadFile]] = None) -
             
             image_paths.append(file_path)
     
-    title = f"The Magical Adventure of {prompt.split()[0] if prompt else 'the Hero'}"
+    title = f"The Magical Adventure"
 
     flow_result = await run_flow(prompt=prompt, fairytale_images=image_paths)
 
-    fairytale_splitted_text = str(flow_result["text"]).split("---------")
+    pages = re.findall(r"<page>(.*?)</page>", str(flow_result["text"]), re.DOTALL)
+    fairytale_splitted_text = [page.strip() for page in pages]
     
     
     fairytale_images = ast.literal_eval(str(flow_result["images"]))
