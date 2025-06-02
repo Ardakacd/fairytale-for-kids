@@ -6,8 +6,6 @@ from app.crew.agents.TextUnderstandingAgent import text_understanding_agent
 from app.crew.agents.ImageUnderstandingAgent import image_understanding_agent
 from app.crew.tasks.writing_fairytale_task import writing_fairytale_task
 from app.crew.agents.FairytaleTextWriterAgent import fairytale_text_writer_agent
-from app.crew.agents.FairytaleCheckerAgent import fairytale_moderator_agent
-from app.crew.tasks.checking_fairytale import checking_fairytale_task
 from app.crew.tasks.image_generation_task import generate_images_from_story_task
 from app.crew.agents.ImageGeneratorAgent import image_generator_agent
 
@@ -51,18 +49,10 @@ class FairyTaleFlow(Flow[FairyTaleState]):
         agent = image_generator_agent()
         result = agent.kickoff(task.description)
         self.state.fairytale_images = result
-
-    @listen(generate_images)
-    def check_fairytale(self):
-        task = checking_fairytale_task(self.state.fairytale_text)
-        agent = fairytale_moderator_agent()
-        result = agent.kickoff(task.description)
-        self.state.fairytale_text = result
         return {
             "text": self.state.fairytale_text,
             "images": self.state.fairytale_images
         }
-    
     
 
 async def run_flow(prompt: str, fairytale_images: list[str]):
