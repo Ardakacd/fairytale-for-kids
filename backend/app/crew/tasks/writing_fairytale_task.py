@@ -9,22 +9,29 @@ def writing_fairytale_task(
     return Task(
         description=dedent(
             f"""
-            **Task**: Write a Fairytale
+            **Task**: Write a Child-Friendly Fairytale
 
-            **Description**: Using the user's prompt and the provided analyses, craft an enchanting fairytale.
-            Weave together the themes, emotions, characters, setting, conflict, resolution, and tone
-            from **text_analysis**, along with the scene descriptions, objects, colors, mood, style,
-            and actions from **image_analysis**. Structure the story into individual "pages."
+            **Description**: Create a magical, gentle fairytale for children aged 3–6. 
+            Use the user's prompt, along with insights from the **text_analysis** 
+            (themes, emotions, characters, setting, conflict, resolution, tone) 
+            and **image_analysis** (scene descriptions, objects, colors, mood, style, actions).
+
+            Write the story in simple, age-appropriate language. Avoid complex words, scary themes, or violence. 
+            Make the story imaginative, comforting, and easy to read aloud — like a picture book or bedtime story.
+
+            Structure the story into ** pages**, each short and self-contained, but part of a flowing story.
 
             **Parameters**:
             - Prompt: {prompt}
             - Text Analysis: {text_analysis}
             - Image Analysis: {image_analysis}
 
-            **Note**: Separate each page by a line of exactly nine hyphens (`---------`). 
-            Do not include any extra commentary or JSON wrappers. Just create 2 page long fairytale.
+            **Note**:
+            - Keep sentences short and vocabulary simple.
+            - Use a warm, friendly tone.
+            - Wrap each story page in `<page>` and `</page>` tags.
+            - Output ONLY the fairytale — no commentary or JSON.
             """
         ),
-        expected_output="the fairytale separated by pages"
+        expected_output="A 2-page fairytale separated by `<page>` and `</page>` tags using simple, child-appropriate language"
     )
-

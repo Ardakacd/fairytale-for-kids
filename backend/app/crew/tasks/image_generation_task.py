@@ -9,7 +9,7 @@ def generate_images_from_story_task(fairytale_text: str):
             **Task**: Generate Fairytale Illustrations
 
             **Description**: Given the fairytale text, generate high-quality illustrations.
-            The text contains page delimiters ('---------'). You must pass the ENTIRE text
+            The text contains page delimiters. You must pass the ENTIRE text
             to the ImageGenerationTool, including all delimiters. Do not modify or remove any delimiters.
 
             **Parameters**:
